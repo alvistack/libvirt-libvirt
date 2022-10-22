@@ -1,0 +1,17 @@
+*.substvars
+*debhelper*
+.debhelper
+autoreconf.*
+files
+libnss-libvirt
+libvirt-clients
+libvirt-daemon
+libvirt-daemon-config-network
+libvirt-daemon-config-nwfilter
+libvirt-daemon-driver-qemu
+libvirt-daemon-system
+libvirt-daemon-system-systemd
+libvirt-daemon-system-sysv
+libvirt-dev
+libvirt0
+tmp

@@ -1,0 +1,71 @@
+#!/usr/bin/make -f
+
+SHELL := /bin/bash
+
+override_dh_auto_configure:
+	dh_auto_configure \
+		-- \
+		--libexecdir=/usr/lib/libvirt \
+		-Dapparmor=enabled \
+		-Dapparmor_profiles=enabled \
+		-Dattr=enabled \
+		-Daudit=enabled \
+		-Dcapng=enabled \
+		-Ddocs=disabled \
+		-Ddriver_bhyve=disabled \
+		-Ddriver_ch=disabled \
+		-Ddriver_interface=enabled \
+		-Ddriver_libvirtd=enabled \
+		-Ddriver_lxc=enabled \
+		-Ddriver_network=enabled \
+		-Ddriver_openvz=enabled \
+		-Ddriver_qemu=enabled \
+		-Ddriver_remote=enabled \
+		-Ddriver_test=enabled \
+		-Ddriver_vbox=enabled \
+		-Ddriver_vz=disabled \
+		-Ddtrace=enabled \
+		-Dfirewalld=enabled \
+		-Dinit_script=systemd \
+		-Dlibnl=enabled \
+		-Dlibpcap=enabled \
+		-Dlibssh2=enabled \
+		-Dlibssh=enabled \
+		-Dlogin_shell=enabled \
+		-Dnss=disabled \
+		-Dnumactl=enabled \
+		-Dnumad=enabled \
+		-Dpm_utils=disabled \
+		-Dpolkit=enabled \
+		-Dqemu_datadir=/usr/share/qemu \
+		-Dqemu_group=libvirt-qemu \
+		-Dqemu_moddir=/usr/lib/$(DEB_HOST_MULTIARCH)/qemu \
+		-Dqemu_user=libvirt-qemu \
+		-Dremote_default_mode=legacy \
+		-Drpath=disabled \
+		-Drunstatedir=/run \
+		-Dsasl=enabled \
+		-Dsecdriver_apparmor=enabled \
+		-Dsecdriver_selinux=enabled \
+		-Dselinux=enabled \
+		-Dselinux_mount=/sys/fs/selinux \
+		-Dstorage_dir=enabled \
+		-Dstorage_disk=enabled \
+		-Dstorage_fs=enabled \
+		-Dstorage_iscsi=enabled \
+		-Dstorage_iscsi_direct=enabled \
+		-Dstorage_lvm=enabled \
+		-Dstorage_mpath=enabled \
+		-Dstorage_scsi=enabled \
+		-Dstorage_vstorage=disabled \
+		-Dstorage_zfs=enabled \
+		-Dtests=disabled \
+		-Dudev=enabled \
+		-Dyajl=enabled
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+
+%:
+	dh $@ --buildsystem=meson
