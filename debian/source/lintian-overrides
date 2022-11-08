@@ -1,0 +1,5 @@
+libvirt source: file-without-copyright-information
+libvirt source: no-debian-changes
+libvirt source: not-binnmuable-any-depends-any
+libvirt source: version-substvar-for-external-package
+libvirt source: weak-library-dev-dependency

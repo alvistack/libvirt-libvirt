@@ -1,0 +1,9 @@
+usr/bin/virt-ssh-helper
+usr/lib/*/libvirt/*/*.so
+usr/lib/libvirt/libvirt-guests.sh
+usr/lib/libvirt/libvirt_iohelper
+usr/lib/libvirt/libvirt_leaseshelper
+usr/lib/libvirt/libvirt_parthelper
+usr/sbin/libvirtd
+usr/sbin/virtlockd
+usr/sbin/virtlogd

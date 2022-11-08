@@ -1,0 +1,247 @@
+Source: libvirt
+Section: otherosfs
+Priority: optional
+Standards-Version: 4.5.0
+Maintainer: Wong Hoi Sing Edison <hswong3i@gmail.com>
+Homepage: https://github.com/libvirt/libvirt/tags
+Vcs-Browser: https://github.com/alvistack/libvirt-libvirt
+Vcs-Git: https://github.com/alvistack/libvirt-libvirt.git
+Build-Depends:
+ debhelper,
+ debhelper-compat (= 10),
+ dh-apparmor,
+ augeas-tools,
+ bash-completion,
+ fdupes,
+ iptables,
+ kmod,
+ libacl1-dev,
+ libapparmor-dev,
+ libattr1-dev,
+ libaudit-dev,
+ libblkid-dev,
+ libc6-dev (>= 2.27),
+ libcap-ng-dev,
+ libcurl4-gnutls-dev,
+ libdevmapper-dev,
+ libfuse3-dev,
+ libglib2.0-dev,
+ libgnutls28-dev (>= 3.2.0),
+ libiscsi-dev,
+ libnl-3-dev,
+ libnl-route-3-dev,
+ libnuma-dev,
+ libparted-dev,
+ libpcap0.8-dev,
+ libpciaccess-dev,
+ libreadline-dev,
+ libsasl2-dev,
+ libselinux1-dev,
+ libssh-dev (>= 0.7),
+ libssh2-1-dev,
+ libtasn1-6-dev,
+ libtirpc-dev,
+ libudev-dev,
+ libxml2-dev,
+ libxml2-utils,
+ libyajl-dev,
+ lvm2,
+ meson (>= 0.54.0),
+ nfs-common,
+ numad,
+ open-iscsi,
+ po-debconf,
+ python3-docutils,
+ python3-dev,
+ qemu-system-common,
+ qemu-utils,
+ systemtap-sdt-dev,
+ xsltproc,
+
+Package: libvirt0
+Architecture: amd64
+Description: library for interfacing with different virtualization systems
+ Libvirt is a C toolkit to interact with the virtualization capabilities
+ of recent versions of Linux (and other OSes). The library aims at providing
+ a long term stable C API for different virtualization mechanisms. It currently
+ supports QEMU, KVM, XEN, OpenVZ, LXC, and VirtualBox.
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ libvirt-daemon (<< 4.10.0-2~),
+Replaces:
+ libvirt-daemon (<< 4.10.0-2~),
+
+Package: libvirt-dev
+Section: libdevel
+Architecture: amd64
+Description: development files for the libvirt library
+ This package contains the header files and static libraries which are
+ needed for developing the applications with libvirt.
+Depends:
+ ${misc:Depends},
+ libvirt0 (= ${source:Version}),
+Recommends:
+ pkg-config,
+
+Package: libvirt-clients
+Section: admin
+Architecture: amd64
+Description: Programs for the libvirt library
+ This package contains the libvirt shell virsh and other client binaries.
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ libvirt0 (= ${source:Version}),
+ sensible-utils,
+Suggests:
+ libvirt-daemon (= ${source:Version}),
+ libvirt-login-shell (= ${source:Version}),
+Breaks:
+ libvirt-daemon (<< 6.9.0-2~),
+ libvirt-daemon-driver-qemu (<< 6.9.0-2~),
+Replaces:
+ libvirt-daemon (<< 6.9.0-2~),
+
+Package: libvirt-daemon
+Section: admin
+Architecture: amd64
+Description: Virtualization daemon
+ This package contains the daemon libvirtd to manage the hypervisors.
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ libvirt-daemon-driver-qemu (= ${source:Version}),
+ libvirt0 (= ${source:Version}),
+Recommends:
+ libxml2-utils,
+ lvm2,
+ netcat-openbsd,
+ qemu-kvm | qemu-system,
+Suggests:
+ libvirt-daemon-system (= ${source:Version}),
+ numad,
+Enhances:
+ qemu-kvm,
+ qemu-system,
+ xen,
+Breaks:
+ libvirt-clients (<< 6.9.0-2~),
+ libvirt-daemon-system (<< 6.9.0-3~),
+Replaces:
+ libvirt-daemon-system (<< 6.9.0-3~),
+
+#Package: libvirt-daemon-driver-qemu
+#Section: admin
+#Architecture: amd64
+#Depends:
+# libvirt0 (= ${source:Version}),
+# ${misc:Depends},
+# ${shlibs:Depends},
+#Breaks:
+# libvirt-clients (<< 6.9.0-2~),
+# libvirt-daemon (<< 6.0.0-1~),
+#Replaces:
+# libvirt-clients (<< 6.9.0-2~),
+# libvirt-daemon (<< 6.0.0-1~),
+#Description: Virtualization daemon QEMU connection driver
+# Libvirt is a C toolkit to interact with the virtualization capabilities
+# of recent versions of Linux (and other OSes). The library aims at providing
+# a long term stable C API for different virtualization mechanisms. It currently
+# supports QEMU, KVM, XEN, OpenVZ, LXC, and VirtualBox.
+# .
+# This package contains the libvirtd connection driver for QEMU.
+
+Package: libvirt-daemon-system
+Section: admin
+Architecture: amd64
+Depends:
+ adduser,
+ gettext-base,
+ iptables | firewalld,
+ libvirt-clients (= ${source:Version}),
+ libvirt-daemon (= ${source:Version}),
+ libvirt-daemon-config-network (= ${source:Version}),
+ libvirt-daemon-config-nwfilter (= ${source:Version}),
+ libvirt-daemon-system-systemd (= ${source:Version}) | libvirt-daemon-system-sysv (= ${source:Version}),
+ logrotate,
+ policykit-1,
+ ${misc:Depends},
+Recommends:
+ dmidecode,
+ dnsmasq-base,
+ iproute2,
+ mdevctl,
+ parted,
+Suggests:
+ apparmor,
+ auditd,
+ nfs-common,
+ open-iscsi,
+ pm-utils,
+ systemd,
+ systemtap,
+ zfsutils,
+Description: Libvirt daemon configuration files
+ Libvirt is a C toolkit to interact with the virtualization capabilities
+ of recent versions of Linux (and other OSes). The library aims at providing
+ a long term stable C API for different virtualization mechanisms. It currently
+ supports QEMU, KVM, XEN, OpenVZ, LXC, and VirtualBox.
+ .
+ This package contains the configuration files to run the libvirt daemon as a
+ system service.
+
+#Package: libvirt-daemon-system-systemd
+#Section: admin
+#Architecture: all
+#Description: Libvirt daemon configuration files (systemd)
+# This package contains the dependencies to make libvirt work with systemd.
+# (this is the default). This package is useless without the
+# libvirt-daemon-system package installed.
+#Depends:
+# systemd-container,
+# systemd-sysv,
+# ${misc:Depends},
+#Conflicts:
+# libvirt-daemon-system-sysv,
+#
+#Package: libvirt-daemon-system-sysv
+#Section: admin
+#Architecture: all
+#Description: Libvirt daemon configuration files (sysv)
+# This package contains dependencies and init scripts to make libvirt work with
+# sysv based init systems. Using libvirt-daemon-systemd is preferred since the
+# init scripts are incomplete.
+#Depends:
+# ${misc:Depends},
+# lsb-base,
+#Breaks:
+# libvirt-daemon-system (<< 5.6.0-4~),
+#Replaces:
+# libvirt-daemon-system (<< 5.6.0-4~),
+
+#Package: libvirt-daemon-config-network
+#Section: admin
+#Architecture: all
+#Description: Libvirt daemon configuration files (default network)
+# This package contains the configuration for the 'default' libvirt network.
+#Depends:
+# ${misc:Depends},
+#Breaks:
+# libvirt-daemon-system (<< 6.9.0-2~),
+#Replaces:
+# libvirt-daemon-system (<< 6.9.0-2~),
+#
+#Package: libvirt-daemon-config-nwfilter
+#Section: admin
+#Architecture: all
+#Description: Libvirt daemon configuration files (default network filters)
+# This package contains the configuration for the default set of nwfilters.
+#Depends:
+# ${misc:Depends},
+#Breaks:
+# libvirt-daemon-system (<< 6.9.0-2~),
+#Replaces:
+# libvirt-daemon-system (<< 6.9.0-2~),
+
